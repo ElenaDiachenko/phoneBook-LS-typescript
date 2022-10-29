@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.div`
+  margin-bottom: ${p => p.theme.space[3]}px;
+`;
+
 export const Label = styled.label`
   display: flex;
   flex-direction: column;

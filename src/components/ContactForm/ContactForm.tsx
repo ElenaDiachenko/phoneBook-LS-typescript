@@ -1,6 +1,7 @@
-import { Formik, Form } from 'formik';
+import { FC } from 'react';
+import { Formik, Form, FormikHelpers } from 'formik';
 import * as yup from 'yup';
-import PropTypes from 'prop-types';
+
 import { Button, Label, Input, Message } from './ContactForm.styled';
 
 const schema = yup.object().shape({
@@ -20,16 +21,29 @@ const schema = yup.object().shape({
     ),
 });
 
+export interface Values {
+  name: string;
+  number: string;
+}
+
 const initialValues = {
   name: '',
   number: '',
 };
-export const ContactForm = ({ onSubmit }) => {
-  const handleSubmit = (values, { resetForm }) => {
+
+interface IProps {
+  onSubmit: (values: Values) => void;
+}
+export const ContactForm: FC<IProps> = ({ onSubmit }) => {
+  const handleSubmit = (
+    values: Values,
+    { resetForm }: FormikHelpers<Values>
+  ) => {
     // console.log(values);
     onSubmit(values);
     resetForm();
   };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -52,8 +66,4 @@ export const ContactForm = ({ onSubmit }) => {
       </Form>
     </Formik>
   );
-};
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
